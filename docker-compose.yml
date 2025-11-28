@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: dd-mongo
+    restart: unless-stopped
+    volumes:
+      - ./mongo-data:/data/db
+
+  backend:
+    image: unknown7777/dd-mean-backend:1.0
+    container_name: dd-backend
+    restart: unless-stopped
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017/dd_mean_db
+      - PORT=8080
+    depends_on:
+      - mongo
+
+  frontend:
+    image: unknown7777/dd-mean-frontend:1.2
+    container_name: dd-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
