@@ -1,0 +1,7 @@
+mongo-data
+node_modules
+dist
+.env
+journal
+*.log
+*.wt
